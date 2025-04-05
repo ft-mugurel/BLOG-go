@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+		<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<title>Hakkımda</title>
+				<script src="https://cdn.tailwindcss.com"></script>
+				<script>tailwind.config = { darkMode: 'class' }</script>
+		</head>
+		<body class="bg-[#fdf6e3] text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen flex flex-col">
+
+				<!-- Navbar (Aynı) -->
+				<header class="border-b border-neutral-300 dark:border-neutral-700 py-4 px-6 flex justify-between items-center">
+						<h1 class="text-xl font-bold">Benim Blogum</h1>
+						<div class="flex items-center gap-4">
+								<nav>
+										<ul class="flex gap-4 text-sm">
+												<li><a href="/" class="hover:underline">Ana Sayfa</a></li>
+												<li><a href="about" class="hover:underline">Hakkımda</a></li>
+												<li><a href="contacts" class="hover:underline">İletişim</a></li>
+										</ul>
+								</nav>
+								<button id="theme-toggle" class="text-sm border border-neutral-500 dark:border-neutral-300 px-3 py-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-800 flex items-center gap-2">
+										<span id="theme-icon"></span>
+										Tema
+								</button>
+						</div>
+				</header>
+
+				<!-- Sayfa İçeriği -->
+				<!-- aynı head, header ve tema butonu -->
+
+				<main class="p-6 max-w-3xl mx-auto flex-grow">
+						<h2 class="text-2xl font-semibold mb-4">İletişim</h2>
+						<p class="text-neutral-600 dark:text-neutral-400 mb-4">
+								Bana ulaşmak için aşağıdaki bilgileri kullanabilirsiniz:
+						</p>
+						<ul class="list-disc ml-5 text-neutral-700 dark:text-neutral-300">
+								<li>E-posta: <a href="mailto:seninmailin@example.com" class="underline">seninmailin@example.com</a></li>
+								<li>GitHub: <a href="https://github.com/kullaniciadi" target="_blank" class="underline">github.com/kullaniciadi</a></li>
+						</ul>
+				</main>
+
+				<!-- aynı footer ve script -->
+
+				<!-- Footer -->
+				<footer class="border-t border-neutral-300 dark:border-neutral-700 py-4 px-6 text-center text-sm text-neutral-500 dark:text-neutral-400">
+						© 2025 Benim Blogum. Tüm hakları saklıdır.
+				</footer>
+
+				<!-- Tema Script (Aynı) -->
+				<script>
+				const toggleBtn = document.getElementById('theme-toggle');
+				const htmlEl = document.documentElement;
+				const iconSpan = document.getElementById('theme-icon');
+
+				const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+				viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+				d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414M17.95 17.95l-1.414-1.414M6.05 6.05L4.636 7.464" /></svg>`;
+
+				const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+				viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+				d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>`;
+
+				function updateIcon() {
+				iconSpan.innerHTML = htmlEl.classList.contains('dark') ? moonIcon : sunIcon;
+				}
+
+				toggleBtn.addEventListener('click', () => {
+				htmlEl.classList.toggle('dark');
+				updateIcon();
+				});
+
+				updateIcon();
+				</script>
+		</body>
+</html>
+
