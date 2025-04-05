@@ -3,7 +3,6 @@ package main
 import (
     "html/template"
     "io"
-
     "github.com/labstack/echo/v4"
     "github.com/labstack/echo/v4/middleware"
 )
@@ -38,6 +37,16 @@ func main() {
     e.GET("/", func(c echo.Context) error {
         count.Count++
         return c.Render(200, "index.html", count)
+    });
+
+    e.GET("/about", func(c echo.Context) error {
+        count.Count++
+        return c.Render(200, "about.html", count)
+    });
+
+    e.GET("/contact", func(c echo.Context) error {
+        count.Count++
+        return c.Render(200, "contact.html", count)
     });
 
     e.Logger.Fatal(e.Start(":42069"))
