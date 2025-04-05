@@ -1,53 +1,37 @@
 package main
 
 import (
-    "html/template"
-    "io"
-    "github.com/labstack/echo/v4"
-    "github.com/labstack/echo/v4/middleware"
+	"github.com/gin-gonic/gin"
+	"html/template"
+	"log"
 )
 
-type Template struct {
-    tmpl *template.Template
-}
-
-func newTemplate() *Template {
-    return &Template{
-        tmpl: template.Must(template.ParseGlob("views/*.html")),
-    }
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-    return t.tmpl.ExecuteTemplate(w, name, data)
-}
-
-type Count struct {
-    Count int
-}
-
 func main() {
+	r := gin.Default()
 
-    e := echo.New()
+	tmpl, err := template.New("").ParseFiles("views/index.html")
+	if err != nil {
+		log.Fatalf("Şablon yüklenirken hata oluştu: %v", err)
+	}
+	r.SetHTMLTemplate(tmpl)
 
-    count := Count{Count: 0}
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index.html", gin.H{
+			"title": "Ana Sayfa",  // Dinamik veri
+		})
+	})
+	r.GET("/about", func(c *gin.Context) {
+		c.HTML(200, "about.html", gin.H{
+			"title": "Ana Sayfa",  // Dinamik veri
+		})
+	})
+	r.GET("/contact", func(c *gin.Context) {
+		c.HTML(200, "contact.html", gin.H{
+			"title": "Ana Sayfa",  // Dinamik veri
+		})
+	})
 
-    e.Renderer = newTemplate()
-    e.Use(middleware.Logger())
-
-    e.GET("/", func(c echo.Context) error {
-        count.Count++
-        return c.Render(200, "index.html", count)
-    });
-
-    e.GET("/about", func(c echo.Context) error {
-        count.Count++
-        return c.Render(200, "about.html", count)
-    });
-
-    e.GET("/contact", func(c echo.Context) error {
-        count.Count++
-        return c.Render(200, "contact.html", count)
-    });
-
-    e.Logger.Fatal(e.Start(":42069"))
+	// Sunucuyu başlat
+	log.Fatal(r.Run(":8080"))
 }
+
