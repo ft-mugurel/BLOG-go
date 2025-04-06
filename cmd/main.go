@@ -9,29 +9,34 @@ import (
 func main() {
 	r := gin.Default()
 
-	tmpl, err := template.New("").ParseFiles("views/index.html")
+	// Tüm HTML dosyalarını yüklüyoruz
+	tmpl, err := template.ParseFiles(
+		"views/index.html",
+		"views/about.html",
+		"views/contact.html",
+	)
 	if err != nil {
-		log.Fatalf("Şablon yüklenirken hata oluştu: %v", err)
+		log.Fatalf("Şablonlar yüklenirken hata oluştu: %v", err)
 	}
 	r.SetHTMLTemplate(tmpl)
 
+	// Sayfalar
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index.html", gin.H{
-			"title": "Ana Sayfa",  // Dinamik veri
+			"title": "Ana Sayfa",
 		})
 	})
 	r.GET("/about", func(c *gin.Context) {
 		c.HTML(200, "about.html", gin.H{
-			"title": "Ana Sayfa",  // Dinamik veri
+			"title": "Hakkımda",
 		})
 	})
 	r.GET("/contact", func(c *gin.Context) {
 		c.HTML(200, "contact.html", gin.H{
-			"title": "Ana Sayfa",  // Dinamik veri
+			"title": "İletişim",
 		})
 	})
 
-	// Sunucuyu başlat
 	log.Fatal(r.Run(":8080"))
 }
 
